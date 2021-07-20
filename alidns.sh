@@ -139,6 +139,7 @@ else
    ;;
    s)
     [ `echo $cont |grep -oE '^[0-9]{0,3}\.[0-9]{0,3}\.[0-9]{0,3}\.[0-9]{0,3}$' |wc -l` -eq 0 ] && { echo "ip ${cont} error";exit 1; }
+    ip_dns=$(dig @${dnsip} ${sub}.${domain} A +short)
     test "$cont" = "$ip_dns" && echo "$ip_dns $sub.$domain" || { [ "$ip_dns" = "" ] && { add_record "$sub" "$cont" ; } || { update_record "$sub" "$cont"; } }
    ;;
    d)
